@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
       background-color: #222;
-      color: #fff;
+      color: #59619c;
     ;
     }
 
@@ -40,6 +40,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s;
       cursor: pointer;
+      height: 150px;
     }
 
     .account-card:hover {

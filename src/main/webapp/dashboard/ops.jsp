@@ -18,7 +18,7 @@
             margin: 0;
             padding: 0;
             background-color: #222;
-            color: #fff;
+            color: #ffffff;
         }
 
         header {
@@ -70,15 +70,23 @@
 </header>
 
 <main>
+
     <ul class="operations-list">
-        <c:forEach var="operation" items="${listofallops}">
-            <li>
-                <div class="operation-card">
-                    <div class="operation-description">${operation.getTypeOperation()} on ${operation.getDateOperation()}</div>
-                    <div class="operation-amount">${operation.getMontant()} Dh</div>
-                </div>
-            </li>
-        </c:forEach>
+        <c:choose>
+            <c:when test="${not empty listofallops}">
+                <c:forEach var="operation" items="${listofallops}">
+                    <li>
+                        <div class="operation-card">
+                            <div class="operation-description">${operation.getTypeOperation()} on ${operation.getDateOperation()}</div>
+                            <div class="operation-amount">${operation.getMontant()} Dh</div>
+                        </div>
+                    </li>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <p>No operations available.</p>
+            </c:otherwise>
+        </c:choose>
     </ul>
 
     <!-- Chart container -->
