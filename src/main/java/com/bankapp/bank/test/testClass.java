@@ -1,6 +1,8 @@
 package com.bankapp.bank.test;
 
 import com.bankapp.bank.daoImp.Doa_user_imp;
+import com.bankapp.bank.daoImp.doa_ClientBank;
+import com.bankapp.bank.daoImp.doa_opImp;
 import com.bankapp.bank.db.DatabaseConnectionManager;
 import com.bankapp.bank.model.ClientBank;
 import com.bankapp.bank.model.account;
@@ -18,34 +20,12 @@ public class testClass {
 
 
     public static void main(String[] args) {
-        Doa_user_imp a = new Doa_user_imp();
-        Boolean resp_from_db = a.check_user("saad", "saad");
-        System.out.println(resp_from_db);
+        doa_ClientBank a=new doa_ClientBank();
+        doa_opImp b=new doa_opImp();
+        Doa_user_imp c=new Doa_user_imp();
+         ClientBank e =c.createClientforView("saad");
+        System.out.println(e);
+        List<operation> listofops=b.getallClientOps(e);
 
-        System.out.println(testClass.getAllClientAccounts("saad"));
-    }
-    static List<account> getAllClientAccounts(String c) {
-        List<account> list = new ArrayList<>();
-
-        try{
-            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement a=connection.prepareStatement("SELECT * FROM account WHERE codeClient=(select codeClient from user where username=?)");
-            a.setString(1, c);
-            ResultSet b=a.executeQuery();
-            while(b.next())
-            {
-                account aacc=new account();
-                aacc.setId(b.getString(1));
-                aacc.setAccountNum(b.getString(2));
-                aacc.setCodeClient(b.getString(3));
-                aacc.setSolde(b.getInt(4));
-                list.add(aacc);
-            }
-            a.close();
-            return list;
-        }
-        catch(Exception e){
-            return null;
-        }
-
+        System.out.println(listofops);
     }}

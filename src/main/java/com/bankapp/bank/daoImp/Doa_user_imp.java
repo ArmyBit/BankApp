@@ -19,12 +19,12 @@ public class Doa_user_imp implements daouser {
 
         try{
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement a=connection.prepareStatement("SELECT codeClient FROM user WHERE  username=?)");
+            PreparedStatement a=connection.prepareStatement("SELECT codeClient FROM user WHERE username=?");
             a.setString(1, u);
             ResultSet b=a.executeQuery();
             while(b.next())
             {
-                aacc.setCodeClient(1);
+                aacc.setCodeClient(b.getInt(1));
 
 
             }

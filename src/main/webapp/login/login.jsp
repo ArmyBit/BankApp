@@ -18,7 +18,7 @@
         <div class="screen__content">
             <form class="login" method="post" action="login">
                 <div class="login__field">
-                    <img src="dashboard/assets/img/logo.png" width="60%"/>
+                    <img src="login/logo.png" width="60%"/>
                 </div>
                 <div class="login__field">
                     <i class="login__icon fas fa-user"></i>

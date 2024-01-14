@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bank App Dashboard</title>
+  <title>Dark Bank Dashboard</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -80,9 +80,42 @@
       color: #007bff;
       font-weight: bold;
     }
+    .button {
+      padding: 8px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   </style>
   <script>
-    function redirectToDashboard(accountNum) {
+
+      function sendRequest(action) {
+        fetch('dashboard', {
+          method:"Dop",
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: 'action='+action,
+        })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.text();
+                })
+                .then(data => {
+                  // Handle the response data as needed
+                  console.log(data);
+                })
+                .catch(error => {
+                  // Handle errors during the fetch
+                  console.error('There was a problem with the fetch operation:', error);
+                });
+
+    }
+    function redirectToopspg(accountNum) {
       var form = document.createElement('form');
       form.setAttribute('method', 'post');
       form.setAttribute('action', 'dashboard'); // Replace with your actual servlet URL
@@ -95,6 +128,7 @@
       form.appendChild(input);
       document.body.appendChild(form);
 
+
       form.submit();
     }
   </script>
@@ -102,21 +136,35 @@
 <body>
 
 <header>
-  <h1>Bank App Dashboard</h1>
+  <h1>Welcome <%=session.getAttribute("username")%></h1>
 </header>
 
 <main>
   <jsp:useBean id="listofaccounts" scope="request" type="java.util.List"/>
   <c:forEach var="element" items="${listofaccounts}">
-    <div class="account-card" onclick="redirectToDashboard('${element.getAccountNum()}')" >
+    <div class="account-card" >
       <div class="account-number">Account # ${element.getAccountNum()}</div>
       <div class="balance">Balance:  ${element.getSolde()} Dh </div>
+      <div class="buttons-container">
+        <button class="button" onclick="redirectToopspg('${element.getAccountNum()}')">View Operations</button>
+        <button class="button" onclick="sendRequest('${element.getAccountNum()}')">DOP</button>
+      </div>
+
     </div>
   </c:forEach>
 <jsp:useBean id="listofallops" scope="request" type="java.util.List"/>
-<c:forEach var="element" items="${listofallops}">
-  <p>${element}</p>
-</c:forEach>
+  <ul class="operations-list">
+    <h1>List of All operations </h1>
+    <c:forEach var="operation" items="${listofallops}">
+      <li>
+        <div class="operation-card">
+          <div class="operation-amount">${operation.getAccountNum()}</div>
+          <div class="operation-description">${operation.getTypeOperation()} on ${operation.getDateOperation()}</div>
+          <div class="operation-amount">${operation.getMontant()}</div>
+        </div>
+      </li>
+    </c:forEach>
+  </ul>
 
 </main>
 

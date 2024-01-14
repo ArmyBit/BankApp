@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -43,7 +44,7 @@ public class dashboard extends HttpServlet {
             List<account> listtobeSent=a.getAllClientAccounts(String.valueOf(session.getAttribute("username")));
             req.setAttribute("listofaccounts",listtobeSent);
             List<operation> listofops=b.getallClientOps(c.createClientforView(String.valueOf(session.getAttribute("username"))));
-            req.setAttribute("listofallops",listtobeSent);
+            req.setAttribute("listofallops",listofops);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/dashboard/dashboard.jsp");
             dispatcher.forward(req, resp);
         }
@@ -53,6 +54,14 @@ public class dashboard extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
     }
-
+    protected void doDop(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Your logic for handling the "dop" request
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h2>Performing DOP...</h2>");
+        out.println("</body></html>");
+    }
 
 }
