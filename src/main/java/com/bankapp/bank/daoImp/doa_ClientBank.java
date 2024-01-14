@@ -4,7 +4,6 @@ import com.bankapp.bank.dao.dao_Client;
 import com.bankapp.bank.db.DatabaseConnectionManager;
 import com.bankapp.bank.model.ClientBank;
 import com.bankapp.bank.model.account;
-import com.bankapp.bank.model.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,14 +36,15 @@ public class doa_ClientBank implements dao_Client {
         }
     }
 
+
     @Override
-    public List<account> getAllClientAccounts(ClientBank c) {
+    public List<account> getAllClientAccounts(String c) {
         List<account> list = new ArrayList<>();
 
         try{
             Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement a=connection.prepareStatement("SELECT * FROM account WHERE codeClient=?");
-            a.setString(1, String.valueOf(c.getCodeClient()));
+            PreparedStatement a=connection.prepareStatement("SELECT * FROM account WHERE codeClient=(select codeClient from user where username=?)");
+            a.setString(1, c);
             ResultSet b=a.executeQuery();
             while(b.next())
             {

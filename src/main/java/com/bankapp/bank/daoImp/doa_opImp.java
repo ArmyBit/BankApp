@@ -43,6 +43,28 @@ public class doa_opImp implements doa_op {
 
     @Override
     public List<operation> getallClientOps(ClientBank c) {
-        return null;
+        List<operation> list = new ArrayList<>();
+        try{
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement a=connection.prepareStatement("SELECT * FROM operation WHERE codeClient=?");
+            a.setString(1, String.valueOf(c.getCodeClient()));
+            ResultSet b=a.executeQuery();
+            while(b.next())
+            {
+                operation op=new operation();
+                op.setIdOperation(b.getInt(1));
+                op.setDateOperation(b.getDate(2));
+                op.setTypeOperation(b.getString(3));
+                op.setAccountNum(b.getString(4));
+                op.setMontant(b.getDouble(5));
+                list.add(op);
+            }
+            a.close();
+            return list;
+        }
+        catch(Exception e){
+            return null;
+        }
     }
-}
+    }
+

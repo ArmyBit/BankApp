@@ -6,10 +6,35 @@ import java.sql.ResultSet;
 
 import com.bankapp.bank.dao.daouser;
 import com.bankapp.bank.db.DatabaseConnectionManager;
+import com.bankapp.bank.model.ClientBank;
+import com.bankapp.bank.model.account;
 import com.bankapp.bank.model.user;
 import jakarta.inject.Singleton;
 
 public class Doa_user_imp implements daouser {
+
+    @Override
+    public ClientBank createClientforView(String u) {
+        ClientBank aacc=new ClientBank();
+
+        try{
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement a=connection.prepareStatement("SELECT codeClient FROM user WHERE  username=?)");
+            a.setString(1, u);
+            ResultSet b=a.executeQuery();
+            while(b.next())
+            {
+                aacc.setCodeClient(1);
+
+
+            }
+            a.close();
+            return aacc;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
 
     @Override
     public boolean check_user(String Username, String Password) {

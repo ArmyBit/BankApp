@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface dao_Client {
     public ClientBank getClientinfo(String CodeClient);
-    public List<account> getAllClientAccounts(ClientBank c);
+
+    List<account> getAllClientAccounts(String c);
 }

@@ -1,14 +1,12 @@
 package com.bankapp.bank.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 
 public class ClientBank {
     private Integer codeClient;
