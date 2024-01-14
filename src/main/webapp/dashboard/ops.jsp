@@ -10,8 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <style>
         body {
@@ -87,49 +86,6 @@
         <canvas id="balanceChart"></canvas>
     </div>
 </main>
-
-<script>
-    // Example data for the chart
-    const chartData = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{
-            label: 'Balance History',
-            data: [5000, 5500, 6000, 5500, 7000, 8000],
-            backgroundColor: 'rgba(0, 123, 255, 0.5)',
-            borderColor: 'rgba(0, 123, 255, 1)',
-            borderWidth: 2
-        }]
-    };
-
-    // Function to create a balance chart
-    function createChart() {
-        const ctx = document.getElementById('balanceChart').getContext('2d');
-        const balanceChart = new Chart(ctx, {
-            type: 'line',
-            data: chartData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: value => `$${value.toFixed(2)}`
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // Call the function to create the balance chart
-    createChart();
-</script>
 
 </body>
 </html>

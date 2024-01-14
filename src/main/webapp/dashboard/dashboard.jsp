@@ -11,22 +11,20 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: #222;
+      color: #fff;
     }
 
     header {
       background-color: #333;
-      color: #fff;
       padding: 1em;
       text-align: center;
     }
 
     main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
       padding: 20px;
     }
+
 
     .account-card {
       width: 300px;
