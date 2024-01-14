@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 public class operation {
-    private String idOperation ;
+    private Integer idOperation ;
     private Date dateOperation ;
     private String typeOperation;
     private String accountNum;

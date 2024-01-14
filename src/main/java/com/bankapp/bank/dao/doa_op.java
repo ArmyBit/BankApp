@@ -7,7 +7,7 @@ import com.bankapp.bank.model.operation;
 import java.util.List;
 
 public interface doa_op {
-    public operation getaccountOps(account u);
+    public List<operation> getaccountOps(account u);
     public List<operation> getallClientOps(ClientBank c);
 
 }
