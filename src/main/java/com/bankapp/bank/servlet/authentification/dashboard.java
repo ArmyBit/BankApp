@@ -52,16 +52,23 @@ public class dashboard extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
-    protected void doDop(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Your logic for handling the "dop" request
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h2>Performing DOP...</h2>");
-        out.println("</body></html>");
+        HttpSession session = req.getSession(true);
+
+        if (session.getAttribute("username") == null) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/login/login.jsp");
+            dispatcher.forward(req, resp);
+        } else {
+            account act=new account();
+            act.setAccountNum(req.getParameter("accountNum"));
+            List<operation> listofops=b.getaccountOps(act);
+            req.setAttribute("listofallops",listofops);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/dashboard/ops.jsp");
+            dispatcher.forward(req, resp);
+        }
     }
 
-}
+    }
+
+
+
+

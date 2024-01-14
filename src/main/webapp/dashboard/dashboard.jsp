@@ -91,30 +91,23 @@
   </style>
   <script>
 
-      function sendRequest(action) {
-        fetch('dashboard', {
-          method:"Dop",
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: 'action='+action,
-        })
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                  }
-                  return response.text();
-                })
-                .then(data => {
-                  // Handle the response data as needed
-                  console.log(data);
-                })
-                .catch(error => {
-                  // Handle errors during the fetch
-                  console.error('There was a problem with the fetch operation:', error);
-                });
+    function redirecttoCom(accountNum) {
+      var form = document.createElement('form');
+      form.setAttribute('method', 'post');
+      form.setAttribute('action', 'dashboard'); // Replace with your actual servlet URL
 
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'accountNum');
+      input.setAttribute('value', accountNum);
+
+      form.appendChild(input);
+      document.body.appendChild(form);
+
+
+      form.submit();
     }
+
     function redirectToopspg(accountNum) {
       var form = document.createElement('form');
       form.setAttribute('method', 'post');
@@ -147,7 +140,7 @@
       <div class="balance">Balance:  ${element.getSolde()} Dh </div>
       <div class="buttons-container">
         <button class="button" onclick="redirectToopspg('${element.getAccountNum()}')">View Operations</button>
-        <button class="button" onclick="sendRequest('${element.getAccountNum()}')">DOP</button>
+        <button class="button" onclick="redirecttoCom('${element.getAccountNum()}')">DOP</button>
       </div>
 
     </div>
