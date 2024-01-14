@@ -39,7 +39,7 @@ public class doa_opImp implements doa_op {
             return null;
         }
     }
-    }
+
 
     @Override
     public List<operation> getallClientOps(ClientBank c) {
