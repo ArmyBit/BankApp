@@ -13,18 +13,22 @@
       padding: 0;
       background-color: #222;
       color: #fff;
+    ;
     }
 
     header {
       background-color: #333;
+      color: #fff;
       padding: 1em;
       text-align: center;
     }
 
     main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
       padding: 20px;
     }
-
 
     .account-card {
       width: 300px;
