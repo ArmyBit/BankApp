@@ -8,7 +8,7 @@ Bank App is a simple web application that allows users to check their balance an
 
 - **Account Balance:** Once logged in, users can check their account balance.
 
-- **View Operations:** Users can view their recent operations, including virements and retraits.
+- **View Operations:** Users can view their recent operations, including payments and withdraws.
 
 ## Technologies Used
 
