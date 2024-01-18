@@ -10,4 +10,6 @@ public interface doa_account {
     public Double getSolde(account acc);
 
 
+    Double getSoldebyAccountNum(account u);
+    List<account> getallAccount();
 }

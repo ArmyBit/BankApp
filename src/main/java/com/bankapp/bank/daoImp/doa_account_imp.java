@@ -3,11 +3,11 @@ package com.bankapp.bank.daoImp;
 import com.bankapp.bank.dao.doa_account;
 import com.bankapp.bank.db.DatabaseConnectionManager;
 import com.bankapp.bank.model.account;
-import com.bankapp.bank.model.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class doa_account_imp implements doa_account {
@@ -62,4 +62,50 @@ public class doa_account_imp implements doa_account {
             return null;
         }
     }
+    @Override
+    public Double getSoldebyAccountNum(account u) {
+        try{
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement a=connection.prepareStatement("SELECT solde FROM account WHERE accountNum=?");
+            a.setString(1, u.getAccountNum());
+            ResultSet b=a.executeQuery();
+            Double solde=null;
+            while(b.next()){
+                solde=b.getDouble(1);
+
+
+            }
+            a.close();
+
+            return solde;
+
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+    @Override
+    public List<account> getallAccount(){
+            List<account> listofallAccount=null;
+            try{
+                Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+                PreparedStatement prini=connection.prepareStatement("Select accountNum from account");
+                ResultSet b=prini.executeQuery();
+                while(b.next()){
+                    account ac=new account(b.getString(1));
+                    listofallAccount.add(ac);
+
+                }
+            return listofallAccount;}
+            catch (Exception e) {
+                return null;
+            }
+
+
+
+    }
+
+
+
 }
+

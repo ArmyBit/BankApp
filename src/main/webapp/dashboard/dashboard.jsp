@@ -94,7 +94,7 @@
   </style>
   <script>
 
-    function redirecttoCom(accountNum) {
+    function redirecttoops(accountNum) {
       var form = document.createElement('form');
       form.setAttribute('method', 'post');
       form.setAttribute('action', 'dashboard'); // Replace with your actual servlet URL
@@ -113,8 +113,8 @@
 
     function redirectToopspg(accountNum) {
       var form = document.createElement('form');
-      form.setAttribute('method', 'post');
-      form.setAttribute('action', 'dashboard'); // Replace with your actual servlet URL
+      form.setAttribute('method', 'get');
+      form.setAttribute('action', 'dashboard/ops'); // Replace with your actual servlet URL
 
       var input = document.createElement('input');
       input.setAttribute('type', 'hidden');
@@ -142,8 +142,8 @@
       <div class="account-number">Account # ${element.getAccountNum()}</div>
       <div class="balance">Balance:  ${element.getSolde()} Dh </div>
       <div class="buttons-container">
-        <button class="button" onclick="redirectToopspg('${element.getAccountNum()}')">View Operations</button>
-        <button class="button" onclick="redirecttoCom('${element.getAccountNum()}')">DOP</button>
+        <button class="button" onclick="redirecttoops('${element.getAccountNum()}')">View Operations</button>
+        <button class="button" onclick="redirectToopspg('${element.getAccountNum()}')">DOP</button>
       </div>
 
     </div>

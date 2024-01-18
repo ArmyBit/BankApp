@@ -12,10 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.HttpConstraint;
 import jakarta.servlet.annotation.ServletSecurity;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,12 +40,24 @@ public class dashboard extends HttpServlet {
         } else {
             List<account> listtobeSent=a.getAllClientAccounts(String.valueOf(session.getAttribute("username")));
             req.setAttribute("listofaccounts",listtobeSent);
+            for (int i = 0; i < listtobeSent.size(); i++) {
+                String cookieName = "account" + i;
+                String cookieValue = listtobeSent.get(i).getAccountNum();
+
+                // Create a new Cookie
+                Cookie accountCookie = new Cookie(cookieName, cookieValue);
+
+                // Add the cookie to the response
+                resp.addCookie(accountCookie);
+            }
+        }
+
             List<operation> listofops=b.getallClientOps(c.createClientforView(String.valueOf(session.getAttribute("username"))));
             req.setAttribute("listofallops",listofops);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/dashboard/dashboard.jsp");
             dispatcher.forward(req, resp);
         }
-    }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,16 +67,16 @@ public class dashboard extends HttpServlet {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/login/login.jsp");
             dispatcher.forward(req, resp);
         } else {
-            account act=new account();
+            account act = new account();
             act.setAccountNum(req.getParameter("accountNum"));
-            List<operation> listofops=b.getaccountOps(act);
-            req.setAttribute("listofallops",listofops);
+            List<operation> listofops = b.getaccountOps(act);
+            req.setAttribute("listofallops", listofops);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/dashboard/ops.jsp");
             dispatcher.forward(req, resp);
         }
-    }
+    }}
 
-    }
+
 
 
 
