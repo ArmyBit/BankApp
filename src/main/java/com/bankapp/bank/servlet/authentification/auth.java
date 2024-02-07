@@ -24,8 +24,13 @@ public class auth extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(true);
+        if(session.getAttribute("username")!=null){
+            resp.sendRedirect(req.getContextPath() + "/dashboard");
+        }
+        else{
         RequestDispatcher dispatcher = req.getRequestDispatcher("login/login.jsp");
-        dispatcher.forward(req, resp);
+        dispatcher.forward(req, resp);}
     }
 
     @Override

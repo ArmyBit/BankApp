@@ -13,4 +13,8 @@ import lombok.ToString;
 public class account {
     private String id,accountNum,codeClient;
             private Integer solde;
+
+    public account(String accountNum) {
+        this.accountNum = accountNum;
+    }
 }

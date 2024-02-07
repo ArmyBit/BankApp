@@ -6,9 +6,7 @@ import com.bankapp.bank.model.ClientBank;
 import com.bankapp.bank.model.account;
 import com.bankapp.bank.model.operation;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,5 +64,56 @@ public class doa_opImp implements doa_op {
             return null;
         }
     }
+
+    @Override
+    public String opsInterne(String accountNum, String accountNumdest, Double montant) throws SQLException {
+        account ac = new account(accountNum);
+        account dest=new account(accountNumdest);
+        doa_account_imp a = new doa_account_imp();
+        Double solde = a.getSoldebyAccountNum(ac);
+        List<account> listofaccounts=a.getallAccount();
+        Double rest=solde-montant;
+        if(listofaccounts.contains(dest))
+        {
+            if(rest>0){
+                Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+                PreparedStatement pr=connection.prepareStatement("update account set solde=? where accountNum=?");
+                pr.setString(1, String.valueOf(rest));
+                pr.setString(2,String.valueOf(accountNum));
+                int b=pr.executeUpdate();
+                pr=connection.prepareStatement("update account set solde=solde+? where accountNum=?");
+                pr.setString(1, String.valueOf(montant));
+                pr.setString(2,String.valueOf(accountNumdest));
+                int c=pr.executeUpdate();
+                //for history
+                pr=connection.prepareStatement("insert into operation (typeOperation, accountNum, montant) values(?,?,?),(?,?,?) ");
+               pr.setString(1,"virement");
+                pr.setString(2,accountNum);
+                pr.setString(3,String.valueOf(montant));
+                pr.setString(4,"depot");
+                pr.setString(5,accountNumdest);
+                pr.setString(6,String.valueOf(montant));
+
+                int d=pr.executeUpdate();
+                pr=connection.prepareStatement("UPDATE operation\n" +
+                        "SET codeClient = (\n" +
+                        "    SELECT codeClient\n" +
+                        "    FROM account\n" +
+                        "    WHERE accountNum = operation.accountNum\n" +
+                        ")");
+                int e=pr.executeUpdate();
+
+
+
+              return "Operation Done";
+            }
+            else return "Error :Insuffisant Balance";
+        }
+        else
+            return "Error : Account Dest Not Found ";
     }
+
+
+
+}
 

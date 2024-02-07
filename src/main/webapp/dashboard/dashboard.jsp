@@ -5,6 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <title>Dark Bank Dashboard</title>
   <style>
     body {
@@ -94,10 +96,26 @@
   </style>
   <script>
 
-    function redirecttoCom(accountNum) {
+    function redirecttoops(accountNum) {
       var form = document.createElement('form');
       form.setAttribute('method', 'post');
-      form.setAttribute('action', 'dashboard'); // Replace with your actual servlet URL
+      form.setAttribute('action', 'dashboard');
+
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'accountNum');
+      input.setAttribute('value', accountNum);
+
+      form.appendChild(input);
+      document.body.appendChild(form);
+
+
+      form.submit();
+    }
+    function redirectopsinter(accountNum) {
+      var form = document.createElement('form');
+      form.setAttribute('method', 'get');
+      form.setAttribute('action', 'dashboard/OpsI');
 
       var input = document.createElement('input');
       input.setAttribute('type', 'hidden');
@@ -111,10 +129,10 @@
       form.submit();
     }
 
-    function redirectToopspg(accountNum) {
+    function redirectopsExterne(accountNum) {
       var form = document.createElement('form');
-      form.setAttribute('method', 'post');
-      form.setAttribute('action', 'dashboard'); // Replace with your actual servlet URL
+      form.setAttribute('method', 'get');
+      form.setAttribute('action', 'dashboard/OpsE');
 
       var input = document.createElement('input');
       input.setAttribute('type', 'hidden');
@@ -142,8 +160,9 @@
       <div class="account-number">Account # ${element.getAccountNum()}</div>
       <div class="balance">Balance:  ${element.getSolde()} Dh </div>
       <div class="buttons-container">
-        <button class="button" onclick="redirectToopspg('${element.getAccountNum()}')">View Operations</button>
-        <button class="button" onclick="redirecttoCom('${element.getAccountNum()}')">DOP</button>
+        <button class="button" onclick="redirecttoops('${element.getAccountNum()}')">View Operations</button>
+        <button class="button" onclick="redirectopsinter('${element.getAccountNum()}')">Virement Interne </button>
+        <button class="button" onclick="redirectopsExterne('${element.getAccountNum()}')">Virement Externe</button>
       </div>
 
     </div>
@@ -161,8 +180,32 @@
       </li>
     </c:forEach>
   </ul>
+<script>
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const statuserror = urlParams.get('OpsResp')
+  console.log(statuserror)
+
+  if (statuserror){
+    if ( statuserror.includes("Error")) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: statuserror,
+    });
+  } else {
+    Swal.fire({
+      icon: "success",
+      title: "Operation Info",
+      text: statuserror,
+    });
+  }}
+</script>
+
 
 </main>
+
+
 
 </body>
 </html>
