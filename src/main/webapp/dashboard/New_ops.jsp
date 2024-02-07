@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<!-- Main Page -->
 <html>
 <head>
     <meta charset="UTF-8">
@@ -9,8 +10,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-
 
     <style>
         body {
@@ -31,37 +30,26 @@
             padding: 20px;
         }
 
-        .operations-list {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        .operation-card {
-            border: 1px solid #444;
-            border-radius: 8px;
-            margin: 10px 0;
-            padding: 15px;
-            background-color: #333;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .operation-description {
-            margin-bottom: 10px;
-        }
-
-        .operation-amount {
-            color: #007bff;
-            font-weight: bold;
-        }
 
         canvas {
             max-width: 600px;
             margin-top: 20px;
         }
+
+        .operations-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background-color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
     </style>
+
 </head>
 <body>
 
@@ -70,24 +58,37 @@
 </header>
 
 <main>
+    <div class="operations-form">
+        <h2>Operations Form</h2>
+        <form id="operationsForm" action="OpsI" method="post">
+            <input type="hidden" name="numAcc"  id="accNumsender" >
 
-    <ul class="operations-list">
-                    <li>
-                        <div class="operation-card">
-                            <div class="operation-description">${operation.getTypeOperation()} on ${operation.getDateOperation()}</div>
-                            <div class="operation-amount">${operation.getMontant()} Dh</div>
-                        </div>
-                    </li>
 
-    </ul>
-
-    <!-- Chart container -->
-    <div>
-        <canvas id="balanceChart"></canvas>
+            <div class="form-group">
+                <label for="operationType">Recipient Account number :</label>
+                <input type="number" id="operationType" name="RCAcc" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="operationAmount">Operation Amount:</label>
+                <input type="number" id="operationAmount" name="operationAmount" class="form-control" required>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <button type="reset" class="btn btn-danger" >Delete</button>
+        </form>
     </div>
-</main>
-<script>
+
+<script >
+
+
+        let a =window.location.search;
+        a=a.split('=');
+        a=a[1];
+        var elem=document.getElementById("accNumsender");
+        elem.value=a;
+
 
 </script>
+</main>
+
 </body>
 </html>

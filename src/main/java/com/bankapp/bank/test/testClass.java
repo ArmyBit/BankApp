@@ -12,6 +12,7 @@ import com.bankapp.bank.model.operation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -21,22 +22,9 @@ public class testClass {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
-        List<account> listofallAccount=new ArrayList<>();
-        try{
-            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
-            PreparedStatement prini=connection.prepareStatement("Select accountNum from account");
-            ResultSet b=prini.executeQuery();
-            while(b.next()){
-                account ac=new account(b.getString(1));
-                listofallAccount.add(ac);
-
-            }
-            System.out.println(listofallAccount);}
-        catch (Exception e) {
-            System.out.println("error");
-        }
-
+doa_opImp a=new doa_opImp();
+        System.out.println(a.opsInterne("1001","1002",200.0));
 
     }}

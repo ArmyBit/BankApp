@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class doa_account_imp implements doa_account {
@@ -62,6 +63,7 @@ public class doa_account_imp implements doa_account {
             return null;
         }
     }
+
     @Override
     public Double getSoldebyAccountNum(account u) {
         try{
@@ -86,7 +88,7 @@ public class doa_account_imp implements doa_account {
     }
     @Override
     public List<account> getallAccount(){
-            List<account> listofallAccount=null;
+            List<account> listofallAccount=new ArrayList<>();
             try{
                 Connection connection = DatabaseConnectionManager.getInstance().getConnection();
                 PreparedStatement prini=connection.prepareStatement("Select accountNum from account");

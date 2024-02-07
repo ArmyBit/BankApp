@@ -12,5 +12,5 @@ public interface doa_op {
     public List<operation> getallClientOps(ClientBank c);
 
 
-    String ops(String accountNum, String accountNumdest, Double montant) throws SQLException;
+    String opsInterne(String accountNum, String accountNumdest, Double montant) throws SQLException;
 }

@@ -16,6 +16,8 @@ import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -44,16 +46,15 @@ public class dashboard extends HttpServlet {
                 String cookieName = "account" + i;
                 String cookieValue = listtobeSent.get(i).getAccountNum();
 
-                // Create a new Cookie
                 Cookie accountCookie = new Cookie(cookieName, cookieValue);
 
-                // Add the cookie to the response
                 resp.addCookie(accountCookie);
             }
         }
 
             List<operation> listofops=b.getallClientOps(c.createClientforView(String.valueOf(session.getAttribute("username"))));
-            req.setAttribute("listofallops",listofops);
+        listofops.sort(Comparator.comparing(operation::getDateOperation).reversed());
+           req.setAttribute("listofallops",listofops);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/dashboard/dashboard.jsp");
             dispatcher.forward(req, resp);
         }
