@@ -190,7 +190,6 @@
       <div class="Button-c">
         <button class="button" onclick="redirecttoops('${element.getAccountNum()}')">View Operations</button>
         <button class="button" onclick="redirectopsinter('${element.getAccountNum()}')">In-Bank Transfer</button>
-        <button class="button" onclick="redirectopsExterne('${element.getAccountNum()}')">Inter-Bank Transfer</button>
         <button class="button" onclick="redirectCommission('${element.getAccountNum()}')">Bank Commission</button>
 
       </div>
