@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank App Operations</title>
+    <title>In Bank Transfer</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -54,7 +54,7 @@
 <body>
 
 <header>
-    <h1>Bank App Operations</h1>
+     <h1 onclick="window.location.href='../dashboard'">In-Bank Transfer </h1>
 </header>
 
 <main>
@@ -70,15 +70,24 @@
             </div>
             <div class="form-group">
                 <label for="operationAmount">Operation Amount:</label>
-                <input type="number" id="operationAmount" name="operationAmount" class="form-control" required>
+                <input type="number" oninput="check(this)" id="operationAmount" name="operationAmount" class="form-control" required>
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
             <button type="reset" class="btn btn-danger" >Delete</button>
         </form>
     </div>
+<script>
+    function check(input) {
+        if (input.value <1) {
+            alert("Amount must be Greater than 0 ")
+            input.value=""
+        } else {
+            input.setCustomValidity('');
+        }
+    }
 
+</script>
 <script >
-
 
         let a =window.location.search;
         a=a.split('=');

@@ -87,10 +87,10 @@ public class doa_opImp implements doa_op {
                 int c=pr.executeUpdate();
                 //for history
                 pr=connection.prepareStatement("insert into operation (typeOperation, accountNum, montant) values(?,?,?),(?,?,?) ");
-               pr.setString(1,"virement");
+               pr.setString(1,"transfer");
                 pr.setString(2,accountNum);
                 pr.setString(3,String.valueOf(montant));
-                pr.setString(4,"depot");
+                pr.setString(4,"deposit");
                 pr.setString(5,accountNumdest);
                 pr.setString(6,String.valueOf(montant));
 

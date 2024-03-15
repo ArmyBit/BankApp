@@ -24,7 +24,7 @@ public class testClass {
 
     public static void main(String[] args) throws SQLException {
 
-doa_opImp a=new doa_opImp();
-        System.out.println(a.opsInterne("1001","1002",200.0));
+    doa_ClientBank a=new doa_ClientBank();
+        System.out.println(a.getAllBankAccountCommission("10011"));
 
     }}

@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
   <title>Dark Bank Dashboard</title>
   <style>
     body {
@@ -61,13 +62,17 @@
     }
 
     .operations-list {
-      list-style-type: none;
       padding: 0;
       margin-top: 10px;
+      display: inline-flex;
+      flex-wrap: wrap;
+
+
     }
 
     .operation-card {
       border: 1px solid #ddd;
+      width: 200px;
       border-radius: 8px;
       margin: 5px;
       padding: 10px;
@@ -75,6 +80,8 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
+      text-align: center;
+      box-sizing: border-box;
     }
 
     .operation-description {
@@ -91,8 +98,13 @@
       color: #fff;
       border: none;
       border-radius: 4px;
-      cursor: pointer;
-    }
+      cursor: pointer;}
+      .Button-c{
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
   </style>
   <script>
 
@@ -145,6 +157,22 @@
 
       form.submit();
     }
+    function redirectCommission(accountNum) {
+      var form = document.createElement('form');
+      form.setAttribute('method', 'get');
+      form.setAttribute('action', 'dashboard/Commission');
+
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'accountNum');
+      input.setAttribute('value', accountNum);
+
+      form.appendChild(input);
+      document.body.appendChild(form);
+
+
+      form.submit();
+    }
   </script>
 </head>
 <body>
@@ -157,30 +185,38 @@
   <jsp:useBean id="listofaccounts" scope="request" type="java.util.List"/>
   <c:forEach var="element" items="${listofaccounts}">
     <div class="account-card" >
-      <div class="account-number">Account # ${element.getAccountNum()}</div>
+      <div class="account-number">Account identifier : ${element.getAccountNum()}</div>
       <div class="balance">Balance:  ${element.getSolde()} Dh </div>
-      <div class="buttons-container">
+      <div class="Button-c">
         <button class="button" onclick="redirecttoops('${element.getAccountNum()}')">View Operations</button>
-        <button class="button" onclick="redirectopsinter('${element.getAccountNum()}')">Virement Interne </button>
-        <button class="button" onclick="redirectopsExterne('${element.getAccountNum()}')">Virement Externe</button>
+        <button class="button" onclick="redirectopsinter('${element.getAccountNum()}')">In-Bank Transfer</button>
+        <button class="button" onclick="redirectopsExterne('${element.getAccountNum()}')">Inter-Bank Transfer</button>
+        <button class="button" onclick="redirectCommission('${element.getAccountNum()}')">Bank Commission</button>
+
       </div>
 
     </div>
   </c:forEach>
-<jsp:useBean id="listofallops" scope="request" type="java.util.List"/>
+</main>
+  <jsp:useBean id="listofallops" scope="request" type="java.util.List"/>
+<br>
+  <header>
+  <h1>List of All operations </h1>
+  </header>
+
   <ul class="operations-list">
-    <h1>List of All operations </h1>
     <c:forEach var="operation" items="${listofallops}">
       <li>
         <div class="operation-card">
           <div class="operation-amount">${operation.getAccountNum()}</div>
           <div class="operation-description">${operation.getTypeOperation()} on ${operation.getDateOperation()}</div>
-          <div class="operation-amount">${operation.getMontant()}</div>
+          <div class="operation-amount">${operation.getMontant()} DH </div>
         </div>
       </li>
     </c:forEach>
   </ul>
-<script>
+
+  <script>
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const statuserror = urlParams.get('OpsResp')
@@ -203,9 +239,9 @@
 </script>
 
 
-</main>
+
+  </main>
 
 
-
-</body>
-</html>
+  </body>
+  </html>
