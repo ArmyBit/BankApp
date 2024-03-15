@@ -42,6 +42,7 @@ public class OpsInterne extends HttpServlet {
 
         } catch (SQLException e) {
             req.setAttribute("response","Error from System");
+            System.out.println(e);
             resp.sendRedirect(req.getContextPath() + "/dashboard?OpsResp="+"Error from System");
 
         }

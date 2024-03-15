@@ -3,7 +3,9 @@ package com.bankapp.bank.daoImp;
 import com.bankapp.bank.dao.dao_Client;
 import com.bankapp.bank.db.DatabaseConnectionManager;
 import com.bankapp.bank.model.ClientBank;
+import com.bankapp.bank.model.CommissionModel;
 import com.bankapp.bank.model.account;
+import com.bankapp.bank.model.operation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,6 +56,32 @@ public class doa_ClientBank implements dao_Client {
                 aacc.setCodeClient(b.getString(3));
                 aacc.setSolde(b.getInt(4));
                 list.add(aacc);
+            }
+            a.close();
+            return list;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+    @Override
+    public List<CommissionModel> getAllBankAccountCommission(String c){
+
+        List<CommissionModel> list = new ArrayList<>();
+        try{
+            Connection connection = DatabaseConnectionManager.getInstance().getConnection();
+            PreparedStatement a=connection.prepareStatement("SELECT * FROM Commission WHERE AccIdentifier=?");
+            a.setString(1,c);
+            ResultSet b=a.executeQuery();
+            while(b.next())
+            {
+                CommissionModel Com=new CommissionModel();
+                Com.setIdCommission(b.getInt(1));
+                Com.setId_Op(b.getInt(2));
+                Com.setAccountNum(b.getString(3));
+                Com.setVal(b.getFloat(4));
+
+                list.add(Com);
             }
             a.close();
             return list;

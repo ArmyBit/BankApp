@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Operations</title>
+    <title>Bank Commission</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -66,25 +66,34 @@
 <body>
 
 <header>
-    <h1 onclick="window.location.href='dashboard'">Account Operations</h1>
+    <h1 onclick="window.location.href='../dashboard'">Bank Commissions</h1>
 </header>
 
 <main>
-
+    <div class="operation-card">
+    </div>
+    <div class="operation-card" style="text-align: center ; color: #6474e0;  font-weight: bold;">
+       The Total Amount of Bank Commission :  <%=request.getAttribute("SUM")%>  DH
+    </div>
+    <div class="operation-card">
+    </div>
     <ul class="operations-list">
         <c:choose>
-            <c:when test="${not empty listofallops}">
-                <c:forEach var="operation" items="${listofallops}">
+            <c:when test="${not empty ListOfCommission}">
+                <c:forEach var="Commission" items="${ListOfCommission}">
                     <li>
                         <div class="operation-card">
-                            <div class="operation-description">${operation.getTypeOperation()} on ${operation.getDateOperation()}</div>
-                            <div class="operation-amount">${operation.getMontant()} Dh</div>
+                            <div class="operation-description">Commission Id: ${Commission.getIdCommission()}</div>
+                            <div class="operation-description">Operation Id : ${Commission.getId_Op()}</div>
+                            <div class="operation-amount">Commission Value: ${Commission.getVal()} Dh </div>
+
+
                         </div>
                     </li>
                 </c:forEach>
             </c:when>
             <c:otherwise>
-                <p>No operations available.</p>
+                <p>No Commission Available</p>
             </c:otherwise>
         </c:choose>
     </ul>

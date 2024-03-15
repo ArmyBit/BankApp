@@ -54,11 +54,6 @@
 </header>
 
 <section>
-    <div class="login-container">
-        <h2>Login to Your Account</h2>
-        <button class="login-button" onclick="window.location.href='login'">Log In</button>
-    </div>
-
     <div class="bank-description">
         <p>
             Welcome to Bank Name, where we prioritize the security and convenience of your banking experience.
@@ -66,6 +61,16 @@
             Feel free to explore our website and discover the range of services we offer.
         </p>
     </div>
+    <div class="login-container">
+        <h2>Login to Your Account</h2>
+        <button class="login-button" onclick="window.location.href='login'">Log In</button>
+    </div>
+    <div class="login-container">
+        <h2>Create a new Digital Acoount </h2>
+        <button class="login-button" onclick="window.location.href='Signup'">Sign Up</button>
+    </div>
+
+
 </section>
 </body>
 
